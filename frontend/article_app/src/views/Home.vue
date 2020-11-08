@@ -5,8 +5,8 @@
       <b-jumbotron :header=article.title :lead=article.content>
         <p>Created at: {{article.created_at}}</p>
         <p>By: {{article.author}}</p>
-        <b-button variant="primary" href="#">Update</b-button>
-        <b-button variant="danger" href="#">Delete</b-button>
+        <b-button variant="primary">Update</b-button>
+        <b-button @click="deleteArticle(article.id)" variant="danger">Delete</b-button>
       </b-jumbotron>
     </div>
   </div>
@@ -20,7 +20,8 @@ import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'Home',
   methods: {
-    ...mapActions(['fetchArticles'])
+    ...mapActions(['fetchArticles', 'deleteArticle']),
+    
   },
 
   computed: mapGetters(['allArticles']),

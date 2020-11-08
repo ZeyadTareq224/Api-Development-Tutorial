@@ -13,15 +13,16 @@ const getters = {
 const actions = {
     async fetchArticles ({ commit }){
         const response = await axios.get('http://localhost:8000/api/articles/')
-        console.log("data articles: ", response.data)
         commit ('setArticles', response.data)
     },
     async addArticle({ commit }, payload){
-        console.log("11111111111111111")
         const response = await axios.post('http://localhost:8000/api/articles/create/', payload)
-        console.log("res: ", response.data)
         commit('addArticle', response.data)
-    }
+    },
+    async deleteArticle({ commit }, articleId){
+        const response = await axios.delete(`http://localhost:8000/api/articles/${articleId}/delete`)
+        commit('removeArticle', articleId)
+    },
 }
 
 const mutations = {
@@ -30,7 +31,10 @@ const mutations = {
     },
     addArticle: (state, article) => {
         state.articles.push(article)
-    }
+    },
+    removeArticle: (state, articleId) => {
+        return state.articles = state.articles.filter(article => article.id !== articleId)
+    },
 }
 
 export default {

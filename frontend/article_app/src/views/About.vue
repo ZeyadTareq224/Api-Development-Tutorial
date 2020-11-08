@@ -3,7 +3,7 @@
     <h1>Create A New Article</h1>
     <button @click="toggleArticleForm()" class="btn btn-primary">Add Article</button>
     <div>
-      <b-form @submit="onSubmit" @reset="onReset" v-if="showArticleForm">
+      <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="showArticleForm">
         <b-form-group id="input-group-2" label="Your Article's Title:" label-for="input-2">
           <b-form-input
             id="input-2"
@@ -62,7 +62,6 @@ export default {
         content,
         author: 1
       }
-      console.log("payload: ", payload)
       this.addArticle(payload)
     }
   },

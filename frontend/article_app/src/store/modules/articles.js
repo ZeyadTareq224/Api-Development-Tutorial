@@ -23,6 +23,10 @@ const actions = {
         const response = await axios.delete(`http://localhost:8000/api/articles/${articleId}/delete`)
         commit('removeArticle', articleId)
     },
+    async updateArticle({ commit }, payload) {
+        const response = await axios.put(`http://localhost:8000/api/articles/${payload.id}/update`, payload)
+        commit('updateArticle', response)
+    }
 }
 
 const mutations = {
@@ -35,6 +39,9 @@ const mutations = {
     removeArticle: (state, articleId) => {
         return state.articles = state.articles.filter(article => article.id !== articleId)
     },
+    updateArticle: (state, article) => {
+        return state.articles = state.articles
+    }
 }
 
 export default {

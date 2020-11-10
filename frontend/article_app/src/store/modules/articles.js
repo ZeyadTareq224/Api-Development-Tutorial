@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const state = {
+    token: localStorage.getItem("token"),
     articles: []
 }
 
@@ -20,13 +21,20 @@ const actions = {
         commit('addArticle', response.data)
     },
     async deleteArticle({ commit }, articleId){
-        const response = await axios.delete(`http://localhost:8000/api/articles/${articleId}/delete`)
+        const response = await axios.delete(`http://localhost:8000/api/articles/${articleId}/delete/`)
         commit('removeArticle', articleId)
     },
     async updateArticle({ commit }, payload) {
-        const response = await axios.put(`http://localhost:8000/api/articles/${payload.id}/update`, payload)
+        const response = await axios.put(`http://localhost:8000/api/articles/${payload.id}/update/`, payload)
         commit('updateArticle', response)
+    },
+
+    async getToken({ commit }, payload) {
+      const response = await axios.post('http://localhost:8000/api/token/', payload)
+      commit('setToken', response.data)
     }
+    // the last thing i did was accessing the jwt and adding it to the local storage
+
 }
 
 const mutations = {
@@ -41,6 +49,9 @@ const mutations = {
     },
     updateArticle: (state, article) => {
         return state.articles = state.articles
+    },
+    setToken: (state, response) => {
+      localStorage.setItem("token", response.access)
     }
 }
 

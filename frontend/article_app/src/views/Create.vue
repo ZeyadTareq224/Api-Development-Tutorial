@@ -63,6 +63,7 @@ export default {
         author: 1
       }
       this.addArticle(payload)
+      this.$router.push({ name: "Home" })
     }
   },
   

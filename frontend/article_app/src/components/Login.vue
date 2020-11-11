@@ -60,6 +60,7 @@ export default {
                 password: this.formData.password
             }
             this.getToken(payload)
+            this.$router.push({name: "Home"})
 
         }
     }
